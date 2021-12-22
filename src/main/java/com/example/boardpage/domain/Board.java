@@ -33,6 +33,8 @@ public class Board extends BaseTimeEntity {
         this.user = user;
     }
 
+
+
     public void update(Board board){
         this.title = board.getTitle();
         this.subTitle = board.getSubTitle();

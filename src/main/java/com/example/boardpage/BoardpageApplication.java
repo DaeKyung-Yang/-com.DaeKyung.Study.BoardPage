@@ -25,9 +25,15 @@ public class BoardpageApplication {
     public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception{
         return(args)->{
             User user = userRepository.save(User.builder()
-                    .name("DK")
+                    .name("대경")
                     .password("1234")
                     .email("dkYang@naver.com")
+                    .build());
+
+            User user2 = userRepository.save(User.builder()
+                    .name("은서")
+                    .password("1234")
+                    .email("esKim@naver.com")
                     .build());
 
             IntStream.rangeClosed(1, 200).forEach(index -> boardRepository.save(Board.builder()
@@ -38,6 +44,7 @@ public class BoardpageApplication {
                     .user(user)
                     .build())
             );
+
         };
     }
 }

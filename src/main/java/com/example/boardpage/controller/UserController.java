@@ -1,2 +1,5 @@
-package com.example.boardpage.controller;public class UserController {
+package com.example.boardpage.controller;
+
+public class UserController {
+
 }

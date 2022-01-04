@@ -1,11 +1,17 @@
 package com.example.boardpage.service;
 
-import com.example.boardpage.domain.Board;
-import com.example.boardpage.repository.BoardRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.example.boardpage.domain.dto.BoardRequestDto;
+import com.example.boardpage.domain.dto.BoardResponseDto;
+import com.example.boardpage.domain.entity.Board;
+import com.example.boardpage.domain.entity.BoardRepository;
+import com.example.boardpage.exception.CustomException;
+import com.example.boardpage.exception.ErrorCode;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BoardService {
@@ -16,23 +22,40 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public Page<Board> findBoardList(Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber()<= 0 ? 0: pageable.getPageNumber() -1, pageable.getPageSize());
-        return boardRepository.findAll(pageable);
+    @Transactional
+    public Long save(BoardRequestDto boardRequestDto){
+        Board entity = boardRepository.save(boardRequestDto.toEntity());
+        return entity.getId();
     }
 
-    public Board findBoardById(Long id){
-        Board board = boardRepository.findById(id).orElse(new Board());
-        return board;
+    @Transactional
+    public Long update(final Long id, final BoardRequestDto boardRequestDto){
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.update(boardRequestDto.getTitle(), boardRequestDto.getContent(), boardRequestDto.getBoardType());
+        return id;
     }
 
-    public Board save(Board board){
-        Board savedBoard = boardRepository.save(board);
-        return savedBoard;
+    @Transactional
+    public Long delete(final Long id){
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.delete();
+        return id;
     }
 
-    public void deleteById(Long id){
-        boardRepository.deleteById(id);
+    public List<BoardResponseDto> findAll(){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        List<Board> list = boardRepository.findAll(sort);
+
+        List<BoardResponseDto> boardList = new ArrayList<>();
+        for(Board entity : list){
+            boardList.add(new BoardResponseDto(entity));
+        }
+        return boardList;
+    }
+
+    public BoardResponseDto findById(final Long id){
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        return new BoardResponseDto(entity);
     }
 
 }

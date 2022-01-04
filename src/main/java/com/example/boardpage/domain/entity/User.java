@@ -1,4 +1,4 @@
-package com.example.boardpage.domain;
+package com.example.boardpage.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;

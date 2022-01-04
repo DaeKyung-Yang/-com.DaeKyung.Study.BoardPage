@@ -1,6 +1,6 @@
 package com.example.boardpage.repository;
 
-import com.example.boardpage.domain.User;
+import com.example.boardpage.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -11,6 +11,7 @@ public class BoardRequestDto {
 
     private String title;
     private String content;
+    private String deleteYN;
     private BoardType boardType;
 
     private User user;
@@ -19,6 +20,7 @@ public class BoardRequestDto {
         Board build = Board.builder()
                 .title(title)
                 .content(content)
+                .deleteYN(deleteYN)
                 .boardType(boardType)
                 .build();
         return build;

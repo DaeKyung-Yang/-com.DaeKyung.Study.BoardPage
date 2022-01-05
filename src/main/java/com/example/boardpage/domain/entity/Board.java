@@ -19,7 +19,7 @@ public class Board {
     private Long id;
     private String title;
     private String content;
-    private String delete;
+    private String deleteYN;
     private BoardType boardType;
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime modifiedDate;
@@ -28,11 +28,11 @@ public class Board {
     private User user;
 
     @Builder
-    public Board(String title, String content, BoardType boardType, String delete) {
+    public Board(String title, String content, String deleteYN, BoardType boardType) {
         this.title = title;
         this.content = content;
+        this.deleteYN = deleteYN;
         this.boardType = boardType;
-        this.delete = delete;
     }
 
     public void update(String title, String content, BoardType boardType) {
@@ -43,6 +43,6 @@ public class Board {
     }
 
     public void delete(){
-        this.delete = "Y";
+        this.deleteYN = "Y";
     }
 }

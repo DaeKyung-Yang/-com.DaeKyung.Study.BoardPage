@@ -57,5 +57,4 @@ public class BoardService {
         Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         return new BoardResponseDto(entity);
     }
-
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/boards")
 @RequiredArgsConstructor
-public class BoardApiController {
+public class BoardRestApiController {
 
     private final BoardService boardService;
 

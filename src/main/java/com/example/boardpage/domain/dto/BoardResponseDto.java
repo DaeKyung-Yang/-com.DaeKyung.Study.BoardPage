@@ -2,6 +2,7 @@ package com.example.boardpage.domain.dto;
 
 import com.example.boardpage.domain.entity.Board;
 import com.example.boardpage.domain.entity.User;
+import com.example.boardpage.domain.enums.BoardType;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ public class BoardResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String boardType;
+    private String deleteYN;
+    private BoardType boardType;
 
     private User user;
 
@@ -23,7 +25,8 @@ public class BoardResponseDto {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.boardType = String.valueOf(entity.getBoardType());
+        this.deleteYN = entity.getDeleteYN();
+        this.boardType = entity.getBoardType();
         this.user = entity.getUser();
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
